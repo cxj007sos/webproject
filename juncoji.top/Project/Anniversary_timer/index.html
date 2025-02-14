@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的时光</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #FFB6C1, #FFDAB9);
+            color: #4A4A4A;
+            font-family: "Arial", sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 50%;  /* 默认宽度为50%，适应手机屏幕 */
+            max-width: 600px; /* 最大宽度1200px，适应PC端 */
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .time-box {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            display: inline-block;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .time-box:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            background: #FF69B4;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #FF1493;
+            box-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
+        }
+
+        .divider { /* 渐变分割线 */
+            text-align: center;
+            background: linear-gradient(to right, transparent, #ccc, transparent);
+            height: 2px;
+            width: 90%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>我们相识于 <br> 2023年08月19日</h1>
+        <h3>距今已有</h3>
+        <div class="time-box" id="time1">计算中...</div>
+
+  
+        <h2 class="divider" ></h2>
+
+        <h1>相恋于 <br> 2023年12月09日</h1>
+        <h3>距今已有</h3>
+        <div class="time-box" id="time2">计算中...</div>
+
+        <br>
+        <a href="../Valentine_2025/index.html" class="btn">点击官网</a>
+    </div>
+
+    <script>
+        function updateTime(startDate, elementId) {
+            const now = new Date();
+            const start = new Date(startDate);
+            let diff = now - start; // 时间差（毫秒）
+
+            let years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+            diff -= years * (1000 * 60 * 60 * 24 * 365);
+
+            let months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+            diff -= months * (1000 * 60 * 60 * 24 * 30);
+
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff -= days * (1000 * 60 * 60 * 24);
+
+            let hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * (1000 * 60 * 60);
+
+            let minutes = Math.floor(diff / (1000 * 60));
+            diff -= minutes * (1000 * 60);
+
+            let seconds = Math.floor(diff / 1000);
+
+            document.getElementById(elementId).innerHTML = 
+                `${years}年 ${months}月 ${days}日 ${hours}时 ${minutes}分 ${seconds}秒`;
+        }
+
+        function startCountdown() {
+            updateTime("2023-08-19T00:00:00", "time1");
+            updateTime("2023-12-09T00:00:00", "time2");
+        }
+
+        setInterval(startCountdown, 1000);
+    </script>
+</body>
+</html>
+
