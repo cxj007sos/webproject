@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>2025情人节</title>
+        <style>
+            body {
+                margin: 0;
+            }
+            .container {
+                height: 100vh;
+                background: #fae1dd;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .valentine {
+                position: relative;
+                animation: up 3s linear infinite;
+                cursor: pointer;
+            }
+
+            @keyframes up {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-50px);
+                }
+            }
+
+            .envelope {
+                width: 450px;
+                height: 200px;
+                background-color: #f08080;
+                position: relative;
+            }
+
+            .envelope::before {
+                content: "";
+                width: 318px;
+                height: 318px;
+                background-color: #f08080;
+                position: absolute;
+                transform: rotate(-45deg);
+                transform-origin: 0 0;
+                border-top-right-radius: 30px;
+            }
+
+            .front {
+                width: 0;
+                height: 0;
+                border-top: 143px solid transparent;
+                border-bottom: 150px solid transparent;
+                border-right: 270px solid #f4978e;
+                position: absolute;
+                top: 30px;
+                left: 180px;
+            }
+
+            .front::before {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-top: 293px solid transparent;
+                border-left: 450px solid #f8ad9d;
+                top: -142px;
+                left: -180px;
+            }
+
+            .card {
+                width: 410px;
+                height: 255px;
+                background-color: #eae2b7;
+                position: absolute;
+                top: -50px;
+                left: 20px;
+                box-shadow: -5px -5px 100px rgba(0, 0, 0, 0.4);
+                transition: top 0.5s ease;
+            }
+
+            .txt {
+                padding: 30px;
+                font-size: 16px;
+                color: #003049;
+                pointer-events: none;
+            }
+
+            .content {
+                margin-left: 20px;
+                margin-top: 20px;
+                font-size: 15px;
+                pointer-events: none;
+            }
+
+            .indent-text {
+             text-indent: 30px; /* 将首行文本缩进30px */
+            }
+
+            .right_1-text {
+             text-indent: 100px; 
+            }
+
+            .right_2-text {
+             text-indent: 120px; 
+            }
+
+            .shadow {
+                width: 495px;
+                height: 38px;
+                background: rgba(0, 0, 0, 0.3);
+                position: absolute;
+                bottom: 60px;
+                border-radius: 50%;
+                animation: shadow-size 3s linear infinite;
+            }
+
+            @keyframes shadow-size {
+                0%, 100% { 
+                    transform: scaleX(1);
+                }
+                50% {
+                    transform: scaleX(0.85);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="valentine">
+                <div class="envelope"></div>
+                <div class="card">
+                    <div class="txt"></div>
+                </div>
+                <div class="front"></div>
+            </div>
+            <div class="shadow"></div>
+        </div>
+
+        <script>
+            // 等待页面加载完成
+            document.addEventListener('DOMContentLoaded', function() {
+                const valentine = document.querySelector('.valentine');
+                const card = document.querySelector('.card');
+                const txtEl = document.querySelector('.txt');
+                let isTyping = false;
+        
+                // 鼠标进入信封区域时触发动画
+                valentine.addEventListener('mouseenter', () => {
+                    card.style.top = '-90px';
+                    if (!isTyping) {
+                        typewriter();
+                    }
+                });
+        
+                // 鼠标离开信封区域时恢复
+                valentine.addEventListener('mouseleave', () => {
+                    card.style.top = '7px';
+                });
+        
+                // 点击信封时跳转到index.html
+                valentine.addEventListener('click', () => {
+                    window.location.href = '../Anniversary_timer/index.html';  // 相对路径，跳转到一级指定目录的index.html
+                });
+        
+
+                function typewriter() {
+                    isTyping = true;
+                    const text = `亲爱的宵瑶：
+                        <div class="content indent-text">在这个特殊的日子里，送上我为你精心挑选的礼物。<strong>http://juncoji.top</strong><br>
+                        <br>此域名预购10年，希望10年后它依然能见证我们的爱情。直至<strong>"宇宙热寂"</strong>！情人节快乐！<br><br>
+                        <div class="right_1-text">2025-02-14</div>
+                        <div class="right_2-text">大羽</div>
+                        </div>
+                    `;
+
+                    let progress = 0;
+                    txtEl.innerHTML = '';
+                    
+                    const timer = setInterval(() => {
+                        const curr = text.substr(progress, 1);
+                        if (curr === '<') {
+                            progress = text.indexOf('>', progress) + 1;
+                        } else {
+                            progress++;
+                        }
+                        txtEl.innerHTML = text.substring(0, progress) + (progress & 1 ? '_' : '');
+                        
+                        if (progress >= text.length) {
+                            clearInterval(timer);
+                            isTyping = false;
+                        }
+                    }, 80);
+                }
+            });
+        </script>
+    </body>
+</html>

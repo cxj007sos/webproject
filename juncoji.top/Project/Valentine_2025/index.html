@@ -114,7 +114,7 @@
                 height: 38px;
                 background: rgba(0, 0, 0, 0.3);
                 position: absolute;
-                bottom: 60px;
+                top: calc(50% + 250px);  /* 让阴影在 container 中心点下方 130px */
                 border-radius: 50%;
                 animation: shadow-size 3s linear infinite;
             }
@@ -148,23 +148,50 @@
                 const card = document.querySelector('.card');
                 const txtEl = document.querySelector('.txt');
                 let isTyping = false;
-        
-                // 鼠标进入信封区域时触发动画
-                valentine.addEventListener('mouseenter', () => {
-                    card.style.top = '-90px';
-                    if (!isTyping) {
-                        typewriter();
-                    }
-                });
-        
-                // 鼠标离开信封区域时恢复
-                valentine.addEventListener('mouseleave', () => {
-                    card.style.top = '7px';
-                });
-        
-                // 点击信封时跳转到index.html
-                valentine.addEventListener('click', () => {
-                    window.location.href = '../Anniversary_timer/index.html';  // 相对路径，跳转到一级指定目录的index.html
+                let clickCount = 0;
+                let isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent); // 判断是否为移动端
+
+                if (!isMobile) {
+                    // PC 端鼠标悬停上移
+                    valentine.addEventListener('mouseenter', () => {
+                        card.style.top = '-90px';
+                        if (!isTyping) {
+                            typewriter();
+                        }
+                    });
+
+                    // PC 端鼠标移开恢复
+                    valentine.addEventListener('mouseleave', () => {
+                        card.style.top = '7px';
+                    });
+
+                    // PC 端点击也可以触发打字
+                    valentine.addEventListener('click', () => {
+                        if (!isTyping) {
+                            typewriter();
+                        }
+                    });
+
+                } else {
+                    // 手机端第一次点击：上移 + 打字
+                    valentine.addEventListener('touchstart', (e) => {
+                        e.preventDefault(); // 防止触发点击事件
+                        if (clickCount === 0) {
+                            card.style.top = '-90px'; // 上移
+                            if (!isTyping) {
+                                typewriter();
+                            }
+                            clickCount++;
+                        } else {
+                            // 第二次点击：跳转【相对路径，跳转到一级指定目录的index.html】
+                            window.location.href = '../Anniversary_timer/index.html';
+                        }
+                    });
+                }
+
+                 // PC端 点击信封时跳转到index.html【相对路径，跳转到一级指定目录的index.html】
+                 valentine.addEventListener('click', () => {
+                    window.location.href = '../Anniversary_timer/index.html';  
                 });
         
 
